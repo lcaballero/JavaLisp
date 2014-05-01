@@ -2,31 +2,32 @@ package JavaLisp;
 
 
 public class Token {
-    private int offset;
-    private int type;
-    private int length;
-    private String source;
 
-    public Token(String source, int offset, int length, int type) {
-        this.offset = offset;
-        this.type = type;
-        this.length = length;
+    private int start;
+    private int end;
+    private int line;
+    private TokenType type;
+    private StringBuffer source;
+
+    public Token(StringBuffer source, int start, int end, int line, TokenType type) {
         this.source = source;
+        this.start = start;
+        this.end = end;
+        this.line = line;
+        this.type = type;
     }
 
-    public int getOffset() {
-        return offset;
+    public int getLine() { return line; }
+    public int getStart() {
+        return start;
     }
-
-    public int getType() {
+    public TokenType getType() {
         return type;
     }
-
-    public int getLength() {
-        return length;
+    public int getEnd() {
+        return end;
     }
-
-    public String getSource() {
+    public StringBuffer getSource() {
         return source;
     }
 }

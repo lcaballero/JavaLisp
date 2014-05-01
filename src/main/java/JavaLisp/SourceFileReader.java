@@ -54,7 +54,7 @@ public class SourceFileReader implements AutoCloseable {
     }
 
     /**
-     * Peeks at the next character, and determines if the it exists and returns true
+     * Peeks at the next character, and determines if it exists and returns true
      * iff the next character can be obtained from the stream.
      *
      * @return true iff the next character can be obtained from the stream.
