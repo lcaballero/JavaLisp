@@ -30,7 +30,7 @@ public class SourceFileReader implements AutoCloseable {
     private int offset = 0;
     private State state = State.Unopened;
 
-    public SourceFileReader(Path p) {
+    public SourceFileReader(Path p) throws IOException {
 
         if (p == null) {
             throw new IllegalArgumentException("Path cannot be null");
@@ -42,14 +42,18 @@ public class SourceFileReader implements AutoCloseable {
 
         this.path = p;
         this.currentInt = UNOPENED_SENTINEL;
+        this.reader = Files.asCharSource(this.path.toFile(), Charsets.UTF_8).openBufferedStream();
+        this.state = State.Opened;
     }
 
-    /**
-     * Opens the a BufferedStream over the held Path.
-     * @throws IOException
-     */
-    public void open() throws IOException {
-        this.reader = Files.asCharSource(this.path.toFile(), Charsets.UTF_8).openBufferedStream();
+    public SourceFileReader(Reader reader) {
+
+        if (reader == null) {
+            throw new IllegalArgumentException("Cannot create SourceFileReader with null Reader");
+        }
+
+        this.path = null;
+        this.reader = reader;
         this.state = State.Opened;
     }
 
@@ -77,7 +81,9 @@ public class SourceFileReader implements AutoCloseable {
      */
     protected int peekInt() throws IOException {
         if (this.state != State.Peeking) {
-            return readInt();
+            int bytes = readInt();
+            this.state = State.Peeking;
+            return bytes;
         } else {
             return this.currentInt;
         }

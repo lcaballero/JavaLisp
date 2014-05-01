@@ -1,5 +1,6 @@
 package JavaLisp;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Lexer {
@@ -16,24 +17,24 @@ public class Lexer {
         return state;
     }
 
-    public List<Token> Tokenize(String src) {
+    public List<Token> Tokenize() throws IOException {
 
-        // This is equivalent to an empty source file.
-        if (src.length() > 0) {
-            state.state = LexerStates.StartedReading;
-        }
+        int i = 0;
+        this.state.state = LexerStates.StartedReading;
+        this.state.mark = i;
 
-        int i = 0, n = src.length();
-        while (i < n) {
-            char c = src.charAt(i);
+        while (this.reader.hasNext()) {
+            char c = this.reader.read();
             state.c = c;
             state.offset = i;
             state.line += (c == '\n' ? 1 : 0);
             state.source.append(c);
             i++;
+
+            next(state);
         }
 
-        return null;
+        return state.tokens;
     }
 
     public void next(LexerState state) {
@@ -44,6 +45,7 @@ public class Lexer {
             case StartedReading:
                 if (Character.isWhitespace(c)) {
                     state.state = LexerStates.ReadWS;
+                    state.mark();
                 }
                 else if (c == '(') {
                     state.state = LexerStates.ReadingExpressions;
