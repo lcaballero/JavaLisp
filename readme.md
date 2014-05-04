@@ -1,9 +1,9 @@
 # Introduction
 
-I'm writing this project as a learning exercised.  I have a number of books
+I'm writing this project as a learning exercise.  I have a number of books
 that I've bought over the years all revolving around Lisp, and Lispy things.
-I'd like to go through this collection in pain and glorious detail, and so
-I've decided to make that a goal for the rest of my life.
+I'd like to go through this collection in painful and glorious detail, and so
+I've decided to make that a goal -- for the rest of my life.
 
 Here is a list of the books I'm referring to:
 
@@ -27,8 +27,9 @@ Here is a list of the books I'm referring to:
 
 The project is a hand written Lisp lexer and Parser (or hopes to be, it isn't
 yet).  Eventually growing into a Lisp interpreter, as I work through a number
-of the books in the above list.  It includes many suites of tests (from its
-inception.)
+of the books in the above list.
+
+It includes many suites of tests (from its inception.)
 
 ## Setup
 
