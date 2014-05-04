@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lcaballero/JavaLisp.svg?branch=master)](https://travis-ci.org/lcaballero/JavaLisp)
+
 # Introduction
 
 I'm writing this project as a learning exercise.  I have a number of books
@@ -38,6 +40,18 @@ It includes many suites of tests (from its inception.)
 1. Clone the repo, then run: `%> mvn package` which should pull down some
 dependencies and jar up the end code into a fat jar.
 
+
+## License
+
+See license file.
+
+The use and distribution terms for this software are covered by the
+[Eclipse Public License 1.0][EPL-1], which can be found in the file epl-v10.html at the
+root of this distribution. By using this software in any fashion, you are
+agreeing to be bound by the terms of this license. You must not remove this
+notice, or any other, from this software.
+
+
 [Antlr4-Ref]: http://pragprog.com/book/tpantlr2/the-definitive-antlr-4-reference
 [Clojure-Prog]: http://shop.oreilly.com/product/0636920013754.do
 [Clojure-Joy]: http://www.manning.com/fogus2/
@@ -52,3 +66,4 @@ dependencies and jar up the end code into a fat jar.
 [Common-Lisp]: http://www.amazon.com/Common-LISP-Language-Second-Edition/dp/1555580416
 [LoL]: http://letoverlambda.com/
 [Compilers]: http://dragonbook.stanford.edu/
+[EPL-1]: http://opensource.org/licenses/eclipse-1.0.txt
