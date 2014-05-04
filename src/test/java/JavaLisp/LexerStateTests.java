@@ -3,11 +3,6 @@ package JavaLisp;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.List;
-
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -42,10 +37,10 @@ public class LexerStateTests {
 
         assertThat(state.tokens.size(), is(0));
 
-        Token t = state.capture(TokenType.WS);
+        Token t = state.capturePoint(TokenType.WS);
 
         assertThat(t.getStart(), is(mark));
-        assertThat(t.getEnd(), is(state.offset));
+        assertThat(t.getEnd(), is(state.offset + 1));
         assertThat(t.getLine(), is(state.line));
         assertThat(t.getSource(), is(state.source));
         assertThat(t.getType(), is(TokenType.WS));

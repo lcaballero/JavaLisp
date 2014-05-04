@@ -4,9 +4,14 @@ package JavaLisp;
 public enum LexerStates {
     Init,
     StartedReading,
-    ReadWS,
+    ReadingWS,
     ReadingExpressions,
     ReadingString,
     ReadingNumber,
-    ReadingComment
+    ReadingLineComment,
+    CheckingForDecimalPoint,
+    CheckingForExponent,
+    ReadingDecimal,
+    ReadingExponent,
+    CheckingExponentSign
 }

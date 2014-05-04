@@ -7,5 +7,6 @@ public enum TokenType {
     Symbol,
     String,
     Number,
-    WS
+    WS,
+    LineComment
 }

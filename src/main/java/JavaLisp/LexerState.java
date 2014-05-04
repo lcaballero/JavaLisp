@@ -23,10 +23,15 @@ public class LexerState {
      * @param type The type of the token that will be captured.
      * @return the token newly added to the token collection.
      */
-    public Token capture(TokenType type) {
+    public Token capturePoint(TokenType type) {
+        Token t = new Token(source, mark, offset + 1, line, type);
+        tokens.add(t);
+        return t;
+    }
+
+    public Token captureMarked(TokenType type) {
         Token t = new Token(source, mark, offset, line, type);
         tokens.add(t);
-        this.advanceMark();
         return t;
     }
 
@@ -36,5 +41,17 @@ public class LexerState {
 
     public int mark() {
         return this.mark = offset;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+            "[line: %d offset: %d mark: %d char: '%c']",
+            this.line,
+            this.offset,
+            this.mark,
+            this.c
+        );
+
     }
 }
