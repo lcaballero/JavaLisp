@@ -13,5 +13,6 @@ public enum LexerStates {
     CheckingForExponent,
     ReadingDecimal,
     ReadingExponent,
-    CheckingExponentSign
+    CheckingExponentSign,
+    CheckingStringEscapes
 }

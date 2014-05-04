@@ -37,10 +37,11 @@ public class Token {
 
     @Override
     public String toString() {
-        return String.format("[@%d, %d-%d] %s",
-                this.line,
-                this.start,
-                this.end,
-                this.toSubstring().replace("\n", "\\n"));
+        return String.format(
+            "[@%d, %d-%d] %s",
+            this.line,
+            this.start,
+            this.end,
+            this.toSubstring().replace("\n", "\\n"));
     }
 }

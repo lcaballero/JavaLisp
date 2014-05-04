@@ -5,7 +5,7 @@ public enum TokenType {
     LeftParen,
     RightParen,
     Symbol,
-    String,
+    QuotedString,
     Number,
     WS,
     LineComment

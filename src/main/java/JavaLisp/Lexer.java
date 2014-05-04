@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import static JavaLisp.LexerStates.*;
 import static JavaLisp.TokenType.*;
+import static java.lang.Character.isDigit;
 
 /**
  * Tokenizes Lisp like text.
@@ -63,6 +64,7 @@ public class Lexer {
                 readingWS(state, c);
                 break;
             case ReadingString:
+                readingString(state, c);
                 break;
             case ReadingNumber:
                 readingNumber(state, c);
@@ -90,6 +92,56 @@ public class Lexer {
         }
     }
 
+    /**
+     * Escape Sequence  Description
+     * \t               Insert a tab in the text at this point.
+     * \b               Insert a backspace in the text at this point.
+     * \n               Insert a newline in the text at this point.
+     * \r               Insert a carriage return in the text at this point.
+     * \f               Insert a form feed in the text at this point.
+     * \'               Insert a single quote character in the text at this point.
+     * \"               Insert a double quote character in the text at this point.
+     * \\               Insert a backslash character in the text at this point.
+     */
+    public void readingString(LexerState state, char c) {
+
+        switch (c) {
+            case '"':
+                state.state = ReadingExpressions;
+                state.capturePoint(QuotedString);
+                state.advanceMark();
+                break;
+            case '\'':
+                state.state = CheckingStringEscapes;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Transitions back to reading a string after accepting one of the legal
+     * escape characters, which are one of [tbnrf'\"].
+     */
+    public void checkingStringEscapes(LexerState state, char c) {
+
+        switch (c) {
+            case 't':
+            case 'b':
+            case 'n':
+            case 'r':
+            case 'f':
+            case '\'':
+            case '"':
+            case '\\':
+                //TODO: re-write the source buffer to include raw version of the
+                //TODO: underlying value instead of the escape sequence.
+                state.state = ReadingString;
+                break;
+            default:
+                throw new IllegalStateException("Didn't find legal escape for: " + c);
+        }
+    }
+
     public void checkingForDecimalPoint(LexerState state, char c) {
         readingNumber(state, c);
     }
@@ -101,7 +153,7 @@ public class Lexer {
      */
     public void readingNumber(LexerState state, char c) {
 
-        if (isNumber(c)) {
+        if (isDigit(c)) {
             state.state = CheckingForDecimalPoint;
             return;
         }
@@ -127,7 +179,7 @@ public class Lexer {
      * notation.
      */
     public void checkingForExponent(LexerState state, char c) { 
-        if (isNumber(c)) {
+        if (isDigit(c)) {
             return; // Keep reading in numbers
         }
 
@@ -158,7 +210,7 @@ public class Lexer {
                 state.state = ReadingExponent;
                 break;
             default:
-                if (isNumber(c)) {
+                if (isDigit(c)) {
                     state.state = ReadingExponent;
                 } else {
                     throw new IllegalStateException("Started exponenet, but didn't provide sign or magnitude");
@@ -175,7 +227,7 @@ public class Lexer {
      */
     public void readingExponent(LexerState state, char c) {
 
-        if (isNumber(c)) {
+        if (isDigit(c)) {
             // do nothing continue reading magnitude
         } else if (Character.isWhitespace(c)) {
             state.state = ReadingWS;
@@ -190,7 +242,7 @@ public class Lexer {
     }
 
     public void readingDecimal(LexerState state, char c) {
-        if (isNumber(c)) {
+        if (isDigit(c)) {
             state.state = CheckingForExponent;
         }
         else {
@@ -210,7 +262,7 @@ public class Lexer {
 
     public void readingExpressions(LexerState state, char c) {
 
-        if (isNumber(c)) {
+        if (isDigit(c)) {
             state.state = ReadingNumber;
             state.mark();
             return;
@@ -266,7 +318,7 @@ public class Lexer {
             state.mark();
         }
 
-        if (isNumber(c)) {
+        if (isDigit(c)) {
             state.state = ReadingNumber;
             state.mark();
             return;
@@ -287,24 +339,6 @@ public class Lexer {
         }
     }
 
-    public boolean isNumber(char c) {
-        switch (c) {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                return true;
-            default:
-                return false;
-        }
-    }
-
     public void startReading(LexerState state, char c) {
 
         if (Character.isWhitespace(c)) {
@@ -313,7 +347,7 @@ public class Lexer {
             return;
         }
 
-        if (isNumber(c)) {
+        if (isDigit(c)) {
             state.state = ReadingNumber;
             state.mark();
             return;
@@ -324,6 +358,9 @@ public class Lexer {
                 state.state = ReadingExpressions;
                 state.capturePoint(LeftParen);
                 state.advanceMark();
+                break;
+            case '"':
+                state.state = ReadingString;
                 break;
             case ';':
                 state.state = ReadingLineComment;
