@@ -7,21 +7,21 @@ I've decided to make that a goal for the rest of my life.
 
 Here is a list of the books I'm referring to:
 
-The Definitive Antlr 4 Reference
-Clojure Programming
-The Joy of Programming
-Lisp in Small Peices
-Language Implementation Patterns
-The Definitive Antlr Refrence: Building Domain Specific Languages
-Machine Learning In Action
-Programming Game AI by Example
-Programming Clojure
-Scheme and the Art of Programming
-Practical Common Lisp
-Common Lisp
-Let over Lambda
-Compilers: Principles, Techniques, and Tools
-...
+- The Definitive Antlr 4 Reference
+- Clojure Programming
+- The Joy of Programming
+- Lisp in Small Peices
+- Language Implementation Patterns
+- The Definitive Antlr Refrence: Building Domain Specific Languages
+- Machine Learning In Action
+- Programming Game AI by Example
+- Programming Clojure
+- Scheme and the Art of Programming
+- Practical Common Lisp
+- Common Lisp
+- Let over Lambda
+- Compilers: Principles, Techniques, and Tools
+- ...
 
 ## Overview
 
