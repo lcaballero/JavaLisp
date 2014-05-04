@@ -8,8 +8,8 @@ I've decided to make that a goal for the rest of my life.
 Here is a list of the books I'm referring to:
 
 - [The Definitive Antlr 4 Reference] [Antlr4-Ref]
-- [Clojure Programming] [Clojure Prog]
-- [The Joy of Clojure] [Clojure Joy]
+- [Clojure Programming] [Clojure-Prog]
+- [The Joy of Clojure] [Clojure-Joy]
 - [Lisp in Small Peices] [Lisp-Small]
 - [Language Implementation Patterns] [Lang-Patterns]
 - [The Definitive Antlr Reference: Building Domain Specific Languages][Building-DSLs]
